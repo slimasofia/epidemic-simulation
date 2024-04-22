@@ -1,3 +1,17 @@
+/*cria as pessoas, algumas saudáveis, algumas gripadas
+espalha no espaco (na área disponível)
+inicia uma repetição por "Y" vezes
+  para cada pessoa infectada X:
+    aumenta em 1 a quantidade de dias que essa pessoa está infectada
+    vê quem está perto dela; se está a menos de X distância:
+      INFECTA a outra!
+    se essa pessoa infectada (X) ficou infectada há mais de N dias:
+      marca que vai SARAR
+  para cada pessoa que ficou marcada para SARAR:
+    sara essa pessoa :-)
+  retorna ao começo da repetição
+*/
+
 #include <SFML/Graphics.hpp>
 #include "Pessoa.h"
 #include <cstdlib> // Para srand e rand
