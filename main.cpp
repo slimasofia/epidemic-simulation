@@ -1,17 +1,3 @@
-/*cria as pessoas, algumas saudáveis, algumas gripadas
-espalha no espaco (na área disponível)
-inicia uma repetição por "Y" vezes
-  para cada pessoa infectada X:
-    aumenta em 1 a quantidade de dias que essa pessoa está infectada
-    vê quem está perto dela; se está a menos de X distância:
-      INFECTA a outra!
-    se essa pessoa infectada (X) ficou infectada há mais de N dias:
-      marca que vai SARAR
-  para cada pessoa que ficou marcada para SARAR:
-    sara essa pessoa :-)
-  retorna ao começo da repetição
-*/
-
 #include <SFML/Graphics.hpp>
 #include "Pessoa.h"
 #include <cstdlib> // Para srand e rand
@@ -19,15 +5,6 @@ inicia uma repetição por "Y" vezes
 using namespace std;
 using namespace sf;
 
-/* instalar sfml: sudo apt-get install libsfml-dev
-
- g++ -c main.cpp
- g++ main.o -o sfml-app Pessoa.cpp -lsfml-graphics -lsfml-window -lsfml-system 
- ./sfml-app
-
-a taxa de infecção e a população serão parâmetros que o "usuário" poderá editar?
-
-*/
 int main()
 {
     srand(time(nullptr));
@@ -43,8 +20,8 @@ int main()
         EstadoSaude estado = EstadoSaude::Saudavel; // Estado inicial: Saudável
         pessoas.push_back(Pessoa(x, y, estado)); // Adiciona pessoa ao vetor
     }
-    //adicionando 1 pessoa infectada
-    for (int i = 0; i < 1; ++i) {
+    //adicionando 10 pessoas infectadas
+    for (int i = 0; i < 10; ++i) {
         float x = static_cast<float>(rand() % 800); // Posição x aleatória
         float y = static_cast<float>(rand() % 600); // Posição y aleatória
         EstadoSaude estado = EstadoSaude::Infectado; // Estado inicial: Infectado
@@ -59,10 +36,9 @@ int main()
             if (event.type == Event::Closed)
                 window.close();
         }
-
         window.clear();
 
-               // Atualizar e desenhar cada pessoa no vetor
+        // Atualizar e desenhar cada pessoa no vetor
         for (auto& pessoa : pessoas) {
             //pessoa.atualizar(); Atualizar lógica da pessoa
             pessoa.desenhar(window); // Desenhar a pessoa na janela

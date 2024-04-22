@@ -1,7 +1,6 @@
 #include "Pessoa.h"
 
 Pessoa::Pessoa(float x, float y, EstadoSaude estado) : x(x), y(y), estado(estado) {
-    // Construtor
 }
 
 //void Pessoa::atualizar() {
