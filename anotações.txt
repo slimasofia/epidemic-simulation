@@ -17,3 +17,5 @@ inicia uma repetição por "Y" vezes
 
 
 -a taxa de infecção/população/dias de infecção serão parâmetros que poderão ser mudados?
+
+fazer função para verificar a posição antes de desenhar (?)

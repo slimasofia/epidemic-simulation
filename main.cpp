@@ -5,31 +5,38 @@
 using namespace std;
 using namespace sf;
 
+#define W_WIDTH 800
+#define W_HEIGHT 600
+
 int main()
 {
     srand(time(nullptr));
-    RenderWindow window(VideoMode(800, 600), "Epidemic Simulation");
+    RenderWindow window(VideoMode(W_WIDTH, W_HEIGHT), "Epidemic Simulation");
 
     // vetor para armazenar as pessoas
     vector<Pessoa> pessoas;
 
     // adicionando 100 pessoas saudáveis
     for (int i = 0; i < 100; ++i) {
-        float x = static_cast<float>(rand() % 800); // Posição x aleatória
-        float y = static_cast<float>(rand() % 600); // Posição y aleatória
+        float x = static_cast<float>(rand() % W_WIDTH); // Posição x aleatória
+        float y = static_cast<float>(rand() % W_HEIGHT); // Posição y aleatória
         EstadoSaude estado = EstadoSaude::Saudavel; // Estado inicial: Saudável
-        pessoas.push_back(Pessoa(x, y, estado)); // Adiciona pessoa ao vetor
+        float v_x = static_cast<float>(rand() % 200 - 100); // Velocidade inicial aleatória em x (-100 a 100 pixels/segundo)
+        float v_y = static_cast<float>(rand() % 200 - 100);
+        pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
     //adicionando 10 pessoas infectadas
     for (int i = 0; i < 10; ++i) {
-        float x = static_cast<float>(rand() % 800); // Posição x aleatória
-        float y = static_cast<float>(rand() % 600); // Posição y aleatória
+        float x = static_cast<float>(rand() % W_WIDTH); // Posição x aleatória
+        float y = static_cast<float>(rand() % W_HEIGHT); // Posição y aleatória
         EstadoSaude estado = EstadoSaude::Infectado; // Estado inicial: Infectado
-        pessoas.push_back(Pessoa(x, y, estado)); // Adiciona pessoa ao vetor
+       float v_x = static_cast<float>(rand() % 200 - 100); // Velocidade inicial aleatória em x (-100 a 100 pixels/segundo)
+        float v_y = static_cast<float>(rand() % 200 - 100);
+        pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
-
-    while (window.isOpen())
-    {
+    Clock clock;
+    while (window.isOpen()){
+        float dt = clock.restart().asSeconds(); //Calculando o intervalo de tempo desde o último quadro em segundos
         Event event;
         while (window.pollEvent(event))
         {
@@ -40,8 +47,8 @@ int main()
 
         // Atualizar e desenhar cada pessoa no vetor
         for (auto& pessoa : pessoas) {
-            //pessoa.atualizar(); Atualizar lógica da pessoa
-            pessoa.desenhar(window); // Desenhar a pessoa na janela
+            pessoa.atualizar(dt, W_WIDTH, W_HEIGHT); //Atualizar lógica da pessoa
+            pessoa.desenhar(window, W_WIDTH, W_HEIGHT); // Desenhar a pessoa na janela
         }
         window.display();
     }
