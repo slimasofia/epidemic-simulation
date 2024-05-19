@@ -1,3 +1,6 @@
+#ifndef PESSOA_H
+#define PESSOA_H
+
 #include <SFML/Graphics.hpp>
 using namespace sf;
 
@@ -18,3 +21,5 @@ class Pessoa{
     void desenhar(RenderWindow& window, float w_width, float w_heigth); //float w_width, float w_height
 
 };
+
+#endif

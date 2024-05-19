@@ -1,8 +1,15 @@
-cria as pessoas, algumas saudáveis, algumas gripadas
-espalha no espaco (na área disponível)
+-----------------------------
+por enquanto deixar a inicialização das pessoas (saudáveis) no main /ok
+classe Epidemia -- par organizar o main /ok
+makefile 
+função recuperar
+------------------------------------------------------
+instalar sfml: sudo apt-get install libsfml-dev
 
--primeiro fazer as bolinhas se mexerem no espaço pra começarem a 
-infectar umas as outras e aí iniciar a repetição (???)
+g++ -c main.cpp
+g++ main.o -o sfml-app Pessoa.cpp -lsfml-graphics -lsfml-window -lsfml-system
+./sfml-app
+-------------------------------------------------
 
 inicia uma repetição por "Y" vezes
   para cada pessoa infectada X:
@@ -17,5 +24,3 @@ inicia uma repetição por "Y" vezes
 
 
 -a taxa de infecção/população/dias de infecção serão parâmetros que poderão ser mudados?
-
-fazer função para verificar a posição antes de desenhar (?)
