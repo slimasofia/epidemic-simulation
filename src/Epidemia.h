@@ -9,12 +9,11 @@ using namespace std;
 
 class Epidemia{
     public:
-    Epidemia(float taxaInfec, float taxaRecup);
+    Epidemia();   
+    //int n_infectados;
+    //const float DISTANCIA_MINIMA = 10.0f;
     void infectar(std::vector<Pessoa>& pessoas, int largura, int altura);
     void recuperar();
-
-    float taxaInfec;
-    float taxaRecup; // ou tempoRecuperacao ?
 
 };
 

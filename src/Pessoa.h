@@ -15,6 +15,16 @@ class Pessoa{
     float x, y; //posição
     float v_x, v_y;
     EstadoSaude estado;
+    
+    // Métodos para obter a posição x e y
+    float getX() const { return x; }
+    float getY() const { return y; }
+
+    // Método para obter o estado de saúde
+    EstadoSaude getEstado() const { return estado; }
+
+    // Método para definir o estado de saúde
+    void setEstado(EstadoSaude novoEstado) { estado = novoEstado; }
 
     Pessoa(float x, float y, float v_x, float v_y, EstadoSaude estado);
     void atualizar(float dt, float w_width, float w_height);

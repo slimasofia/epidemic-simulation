@@ -1,9 +1,8 @@
 #include "Simulacao.h"
-//#include "Epidemia.h"
 #include <cstdlib>
 #include <ctime>
 
-Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), largura(largura), altura(altura), epidemia(0.1f, 0.01f) {
+Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), largura(largura), altura(altura), epidemia() {
 
     srand(static_cast<unsigned>(time(nullptr)));
 
@@ -18,7 +17,6 @@ Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, al
     }
     //infectando algumas
     epidemia.infectar(pessoas, largura, altura);
-
 }
 
 void Simulacao::run(){
