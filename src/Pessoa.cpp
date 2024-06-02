@@ -28,7 +28,7 @@ void Pessoa::atualizar(float dt, float w_width, float w_height) {
 
 //float w_width, float w_height
 
-// TENTANDO EVITAR QUE AS BOLINHAS SEJAM DESENHADAS FORA DO ESPAÇO DA TELA
+// EVITAR QUE AS BOLINHAS SEJAM DESENHADAS FORA DO ESPAÇO DA TELA
 void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
     
     if (x >= 0 && x < w_width && y >= 0 && y < w_height) {

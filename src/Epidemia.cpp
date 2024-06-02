@@ -12,34 +12,20 @@ Epidemia::Epidemia() {
     srand(static_cast<unsigned int>(time(nullptr)));
 }
 
-void Epidemia::infectar(std::vector<Pessoa>& pessoas, int largura, int altura) {
-    float x, y;
-    for (int i = 0; i < rand() % 100; ++i) { // gerando o número de pessoas infectadas aleatoriamente (com a função srand)
-        x = static_cast<float>(rand() % largura); // Posição x aleatória
-        y = static_cast<float>(rand() % altura); // Posição y aleatória
-        float v_x = static_cast<float>((rand() % 200) - 100); // Velocidade inicial aleatória em x
-        float v_y = static_cast<float>((rand() % 200) - 100); // Velocidade inicial aleatória em y
-        EstadoSaude estado = EstadoSaude::Infectado; // Estado inicial: Infectado
-        pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
+void Epidemia::infectar(std::vector<Pessoa>& pessoas, int num_saudaveis) {
+    // Número de pessoas infectadas aleatório, limitado pelo número de pessoas saudáveis
+    int num_infectadas = rand() % num_saudaveis/2;
+    //float x, y;
+    for (int i = 0; i < num_infectadas; ++i) { // gerando o número de pessoas infectadas aleatoriamente (com a função srand)
+        int index = rand() % num_saudaveis; // Seleciona aleatoriamente uma pessoa saudável
+        pessoas[index].setEstado(EstadoSaude::Infectado); // Marca como infectada
         n_infectados++;
     }
 
-    // Itera sobre todas as pessoas
-    for (vector<Pessoa>::size_type i = 0; i < pessoas.size(); ++i) {
-        for (vector<Pessoa>::size_type j = 0; j < pessoas.size(); ++j) {
-            // Certifica-se de não verificar a mesma pessoa consigo mesma
-            if (i != j) {
-                // Calcula a distância entre as posições das pessoas
-                float dist = sqrt(pow(pessoas[i].getX() - pessoas[j].getX(), 2) + pow(pessoas[i].getY() - pessoas[j].getY(), 2));
-                
-                // Se a distância for menor que um certo valor e uma das pessoas for saudável e a outra infectada, então a pessoa saudável se torna infectada
-                if (dist < DISTANCIA_MINIMA && pessoas[i].getEstado() == EstadoSaude::Saudavel && pessoas[j].getEstado() == EstadoSaude::Infectado) {
-                    pessoas[i].setEstado(EstadoSaude::Infectado);
-                    n_infectados++;
-                }
-            }
-        }
-    }
+    // PARA CONTROLE
+    cout << "POPULAÇÃO TOTAL: " << pessoas.size() << endl;
+    cout << "INFECTADOS INICIALMENTE: " << n_infectados << endl;
+    int n_saudaveis_restantes = num_saudaveis - n_infectados;
+    cout << "SAUDÁVEIS RESTANTES: " << n_saudaveis_restantes << endl;
 
-    cout << n_infectados << endl;
 }

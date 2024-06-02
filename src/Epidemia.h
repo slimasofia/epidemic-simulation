@@ -12,7 +12,7 @@ class Epidemia{
     Epidemia();   
     //int n_infectados;
     //const float DISTANCIA_MINIMA = 10.0f;
-    void infectar(std::vector<Pessoa>& pessoas, int largura, int altura);
+    void infectar(std::vector<Pessoa>& pessoas, int total_saudaveis);
     void recuperar();
 
 };

@@ -1,6 +1,8 @@
 #include "Simulacao.h"
 #include <cstdlib>
 #include <ctime>
+#include <iostream>
+using namespace std;
 
 Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), largura(largura), altura(altura), epidemia() {
 
@@ -15,8 +17,10 @@ Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, al
         float v_y = static_cast<float>(rand() % 200 - 100);
         pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
+    int total_saudaveis = pessoas.size();
+
     //infectando algumas
-    epidemia.infectar(pessoas, largura, altura);
+    epidemia.infectar(pessoas, total_saudaveis);
 }
 
 void Simulacao::run(){
