@@ -4,7 +4,8 @@
 #include <iostream>
 using namespace std;
 
-Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), largura(largura), altura(altura), epidemia() {
+
+Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), largura(largura), altura(altura), total_infectados(0), epidemia(){
 
     srand(static_cast<unsigned>(time(nullptr)));
 
@@ -17,10 +18,14 @@ Simulacao::Simulacao(int largura, int altura) : window(sf::VideoMode(largura, al
         float v_y = static_cast<float>(rand() % 200 - 100);
         pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
-    int total_saudaveis = pessoas.size();
-
+    int dias = 7;
+    float TAXA = 0.05f;
     //infectando algumas
-    epidemia.infectar(pessoas, total_saudaveis);
+    epidemia.infectar(pessoas, dias, TAXA);
+     // imprimir o total de infectados depois dos dias de infecção acabarem
+    total_infectados = epidemia.getNumInfectados();
+    cout << "Total de infectados após " << dias << " dias: " << total_infectados << std::endl;
+
 }
 
 void Simulacao::run(){

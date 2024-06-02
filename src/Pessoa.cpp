@@ -2,7 +2,6 @@
 
 Pessoa::Pessoa(float x, float y, float v_x, float v_y, EstadoSaude estado) : x(x), y(y), v_x(v_x), v_y(v_y), estado(estado) {}
 
-
 void Pessoa::atualizar(float dt, float w_width, float w_height) {
     // Atualizar posição da pessoa com base em sua velocidade e no intervalo de tempo (delta_t)
     x += v_x * dt;
@@ -44,10 +43,26 @@ void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
             circle.setFillColor(Color::Red); // infectada
             break;
         case EstadoSaude::Recuperado:
-            circle.setFillColor(Color::Blue); // recuperada
+            circle.setFillColor(Color::Blue); // recuperada --> não tem a possobilidade de ficar doente novamente
             break;
     }
     // Desenha a bolinha na janela
     window.draw(circle);
+    }
+}
+
+// Implementação do método getTempoInfectado
+int Pessoa::getTempoInfectado() const { ////////
+    return tempoInfectado;
+}
+
+// Implementação do método setTempoInfectado
+void Pessoa::setTempoInfectado(int tempo) { /////////////////
+    tempoInfectado = tempo;
+}
+
+void Pessoa::incrementarTempoInfectado() {
+    if (estado == EstadoSaude::Infectado) {
+        tempoInfectado++;
     }
 }

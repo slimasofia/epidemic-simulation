@@ -21,6 +21,7 @@ class Simulacao{
     RenderWindow window;
     int largura;
     int altura;
+    int total_infectados;
     Epidemia epidemia;
     vector<Pessoa> pessoas;
     Clock clock;
