@@ -22,8 +22,6 @@ class Pessoa{
     float getY() const { return y; }
     int getTempoInfectado() const; /////////////////
 
-
-
     // Método para obter o estado de saúde
     EstadoSaude getEstado() const { return estado; }
 

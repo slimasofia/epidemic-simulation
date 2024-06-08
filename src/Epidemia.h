@@ -3,19 +3,15 @@
 
 #include <vector>
 #include "Pessoa.h"
-#include <SFML/Graphics.hpp>
 
-using namespace std;
-
-class Epidemia{
-    public:
-    Epidemia();   
-    //int n_infectados;
-    //const float DISTANCIA_MINIMA = 10.0f;
-    int getNumInfectados() const;
+class Epidemia {
+public:
+    Epidemia();
     void infectar(std::vector<Pessoa>& pessoas, int dias, float taxa_infeccao);
-    void recuperar();
+    int getNumInfectados() const;
 
+private:
+    int n_infectados;
 };
 
 #endif
