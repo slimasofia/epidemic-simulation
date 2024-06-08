@@ -1,7 +1,12 @@
 #include "Simulacao.h"
 
 int main() {
-    Simulacao s(800, 600);
-    s.run();
+    int largura = 800;
+    int altura = 600;
+    int duracao_infeccao = 5; // Duração da infecção em dias
+
+    Simulacao simulacao(largura, altura, duracao_infeccao);
+    simulacao.run();
+
     return 0;
 }

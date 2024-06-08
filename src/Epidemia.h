@@ -7,7 +7,7 @@
 class Epidemia {
 public:
     Epidemia();
-    void infectar(std::vector<Pessoa>& pessoas, int dias, float taxa_infeccao);
+    void infectar(std::vector<Pessoa>& pessoas, float taxa_infeccao);
     int getNumInfectados() const;
 
 private:

@@ -4,13 +4,14 @@
 #include <iostream>
 using namespace std;
 
-Simulacao::Simulacao(int largura, int altura) 
+Simulacao::Simulacao(int largura, int altura, int duracao_infeccao) 
     : window(sf::VideoMode(largura, altura), "Epidemic Simulation"), 
       clock(),
       largura(largura), 
       altura(altura), 
       total_infectados(0), 
       dia_atual(0), 
+      duracao_infeccao(duracao_infeccao), 
       tempo_decorrido(0), 
       epidemia() {
 
@@ -48,13 +49,19 @@ void Simulacao::update(float dt) {
     // Atualizar o tempo decorrido
     tempo_decorrido += dt;
 
-    // Se um dia passou (supondo que 1 segundo de tempo real corresponde a 1 dia na simulação)
-    if (tempo_decorrido >= 1.0f) {
+    // Se um dia passou (usando 2 segundos de tempo real como 1 dia na simulação)
+    if (tempo_decorrido >= 2.0f) {
         tempo_decorrido = 0.0f;
         dia_atual++;
+
+        // Se a duração da infecção terminou, fechar janela
+        if (dia_atual > duracao_infeccao) {
+            window.close();
+            return;
+        }
         
         float TAXA_INFECCAO = 0.05f;
-        epidemia.infectar(pessoas, 1, TAXA_INFECCAO); // Infectar pessoas para o dia atual
+        epidemia.infectar(pessoas, TAXA_INFECCAO); // Infectar pessoas para o dia atual
 
         // Atualizar o total de infectados
         total_infectados = epidemia.getNumInfectados();
@@ -73,6 +80,19 @@ void Simulacao::render() {
     for (auto& pessoa : pessoas) {
         pessoa.desenhar(window, largura, altura);
     }
+
+    Font fonte;
+    fonte.loadFromFile("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf");
+
+    Text texto;
+    texto.setString("Dia " + to_string(dia_atual) + "\nTotal de infectados: " + to_string(total_infectados));
+
+    texto.setPosition(25, 25);
+    texto.setCharacterSize(20);
+    texto.setFillColor(Color::White);
+    texto.setFont(fonte);
+
+    window.draw(texto);
 
     window.display();
 }
