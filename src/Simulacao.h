@@ -5,6 +5,7 @@
 #include <vector>
 #include "Pessoa.h"
 #include "Epidemia.h"
+#include "TextManager.h"
 
 class Simulacao {
 public:
@@ -26,7 +27,7 @@ private:
     float tempo_decorrido; // Tempo decorrido desde o último dia
     std::vector<Pessoa> pessoas;
     Epidemia epidemia;
-
+    TextManager textManager;
 };
 
 #endif

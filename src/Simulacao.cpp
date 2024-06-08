@@ -26,6 +26,13 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
         float v_y = static_cast<float>(rand() % 200 - 100);
         pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
+
+    if (!textManager.loadFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf")) {
+        cout << "Erro ao carregar a fonte!" << endl;
+    }
+    
+    textManager.addText("dia", "Dia: 0", 20, sf::Color::White, 10, 40);
+    textManager.addText("infectados", "Total de infectados: 0", 20, sf::Color::Red, 10, 10);
 }
 
 void Simulacao::run() {
@@ -54,7 +61,7 @@ void Simulacao::update(float dt) {
         tempo_decorrido = 0.0f;
         dia_atual++;
 
-        // Se a duração da infecção terminou, fechar janela
+        // Se a duração da infecção terminou, terminar simulação
         if (dia_atual > duracao_infeccao) {
             window.close();
             return;
@@ -63,10 +70,14 @@ void Simulacao::update(float dt) {
         float TAXA_INFECCAO = 0.05f;
         epidemia.infectar(pessoas, TAXA_INFECCAO); // Infectar pessoas para o dia atual
 
-        // Atualizar o total de infectados
         total_infectados = epidemia.getNumInfectados();
 
+        textManager.setText("dia", "Dia: " + std::to_string(dia_atual));
+        textManager.setText("infectados", "Total de infectados: " + std::to_string(total_infectados));
+
+
         cout << "Fim do dia " << dia_atual << endl;
+        //cout << "Novos infectados hoje: " << novas_infeccoes << endl;
         cout << "Total de infectados: " << total_infectados << endl;
     }
 
@@ -81,18 +92,6 @@ void Simulacao::render() {
         pessoa.desenhar(window, largura, altura);
     }
 
-    Font fonte;
-    fonte.loadFromFile("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf");
-
-    Text texto;
-    texto.setString("Dia " + to_string(dia_atual) + "\nTotal de infectados: " + to_string(total_infectados));
-
-    texto.setPosition(25, 25);
-    texto.setCharacterSize(20);
-    texto.setFillColor(Color::White);
-    texto.setFont(fonte);
-
-    window.draw(texto);
-
+    textManager.draw(window);
     window.display();
 }
