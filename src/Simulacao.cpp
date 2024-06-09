@@ -10,6 +10,7 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
       largura(largura), 
       altura(altura), 
       total_infectados(0), 
+      total_recuperados(0),
       dia_atual(0), 
       duracao_infeccao(duracao_infeccao), 
       tempo_decorrido(0), 
@@ -18,7 +19,7 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
     srand(static_cast<unsigned>(time(nullptr)));
 
     // Adicionando pessoas saudáveis
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < 20; ++i) {
         float x = static_cast<float>(rand() % largura); // Posição x aleatória
         float y = static_cast<float>(rand() % altura); // Posição y aleatória
         EstadoSaude estado = EstadoSaude::Saudavel; // Estado inicial: Saudável
@@ -30,9 +31,10 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
     if (!textManager.loadFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf")) {
         cout << "Erro ao carregar a fonte!" << endl;
     }
-    
-    textManager.addText("dia", "Dia: 0", 20, sf::Color::White, 10, 40);
-    textManager.addText("infectados", "Total de infectados: 0", 20, sf::Color::Red, 10, 10);
+
+    textManager.addText("dia", "Dia: 0", 20, sf::Color::White, 10, 10);
+    textManager.addText("infectados", "Total de infectados: 0", 20, sf::Color::Red, 10, 40);
+    textManager.addText("recuperados", "Total de recuperados: 0", 20, sf::Color::Blue, 10, 70);
 }
 
 void Simulacao::run() {
@@ -46,6 +48,7 @@ void Simulacao::run() {
 
 void Simulacao::processEvents() {
     sf::Event event;
+    //A SIMULAÇÃO DEVE TERMINAR TAMBÉM SE O NÚMERO DE INFECTADOS = 0
     while (window.pollEvent(event)) {
         if (event.type == sf::Event::Closed)
             window.close();
@@ -56,29 +59,34 @@ void Simulacao::update(float dt) {
     // Atualizar o tempo decorrido
     tempo_decorrido += dt;
 
-    // Se um dia passou (usando 2 segundos de tempo real como 1 dia na simulação)
-    if (tempo_decorrido >= 2.0f) {
+    // Se um dia passou (usando 3 segundos de tempo real como 1 dia na simulação)
+    if (tempo_decorrido >= 3.0f) {
         tempo_decorrido = 0.0f;
         dia_atual++;
 
-        // Se a duração da infecção terminou, terminar simulação
+        // Se a duração da infecção terminou, fechar simulação
         if (dia_atual > duracao_infeccao) {
             window.close();
             return;
         }
-        
+
         float TAXA_INFECCAO = 0.05f;
-        epidemia.infectar(pessoas, TAXA_INFECCAO); // Infectar pessoas para o dia atual
+        float TEMPO_RECUP = 4.0f;
+
+        epidemia.infectar(pessoas, TAXA_INFECCAO); 
+        epidemia.recuperar(pessoas, TEMPO_RECUP);   
+    
 
         total_infectados = epidemia.getNumInfectados();
+        total_recuperados = epidemia.getNumRecuperados();
 
-        textManager.setText("dia", "Dia: " + std::to_string(dia_atual));
-        textManager.setText("infectados", "Total de infectados: " + std::to_string(total_infectados));
-
+        textManager.setText("dia", "Dia: " + to_string(dia_atual));
+        textManager.setText("infectados", "Total de infectados: " + to_string(total_infectados));
+        textManager.setText("recuperados", "Total de recuperados: " + to_string(total_recuperados));
 
         cout << "Fim do dia " << dia_atual << endl;
-        //cout << "Novos infectados hoje: " << novas_infeccoes << endl;
         cout << "Total de infectados: " << total_infectados << endl;
+        cout << "Total de recuperados: " << total_recuperados << endl;
     }
 
     for (auto& pessoa : pessoas) {

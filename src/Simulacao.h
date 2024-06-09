@@ -22,6 +22,7 @@ private:
     int largura;
     int altura;
     int total_infectados;
+    int total_recuperados;
     int dia_atual; // Dia atual da simulação
     int duracao_infeccao; // Duração da infecção em dias
     float tempo_decorrido; // Tempo decorrido desde o último dia

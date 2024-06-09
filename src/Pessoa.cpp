@@ -23,6 +23,10 @@ void Pessoa::atualizar(float dt, float w_width, float w_height) {
         y = w_height - 1; // Ajusta a posição para a borda inferior da tela
         v_y = -v_y; // Inverte a direção da velocidade em y
     }
+
+    if (estado == EstadoSaude::Infectado) {
+        tempoInfectado += dt/3.0f;
+    }
 }
 
 //float w_width, float w_height
@@ -51,18 +55,24 @@ void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
     }
 }
 
-// Implementação do método getTempoInfectado
-int Pessoa::getTempoInfectado() const { ////////
-    return tempoInfectado;
+
+EstadoSaude Pessoa::getEstado() const {
+    return estado;
 }
 
-// Implementação do método setTempoInfectado
-void Pessoa::setTempoInfectado(int tempo) { /////////////////
-    tempoInfectado = tempo;
-}
-
-void Pessoa::incrementarTempoInfectado() {
+void Pessoa::setEstado(EstadoSaude novoEstado) {
+    estado = novoEstado;
     if (estado == EstadoSaude::Infectado) {
-        tempoInfectado++;
+        tempoInfectado = 0;
     }
+}
+
+void Pessoa::incrementarTempoInfectado(float dias) {
+    if (estado == EstadoSaude::Infectado) {
+        tempoInfectado += dias;
+    }
+}
+
+float Pessoa::getTempoInfectado() const {
+    return tempoInfectado;
 }
