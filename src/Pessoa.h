@@ -18,8 +18,8 @@ class Pessoa{
     EstadoSaude estado;
     
     // Métodos para obter a posição x e y
-    float getX() const { return x; }
-    float getY() const { return y; }
+    float getX() const;
+    float getY() const;
 
     // Método para obter o estado de saúde
     EstadoSaude getEstado() const;
@@ -28,9 +28,10 @@ class Pessoa{
     void setEstado(EstadoSaude novoEstado);
     Pessoa(float x, float y, float v_x, float v_y, EstadoSaude estado);
     void atualizar(float dt, float w_width, float w_height);
-    //void setTempoInfectado(int tempo); ///////////
+
     void desenhar(RenderWindow& window, float w_width, float w_heigth); //float w_width, float w_height
     float getTempoInfectado() const;
+    float distancia(const Pessoa& outra) const;
     void incrementarTempoInfectado(float dias);
 };
 

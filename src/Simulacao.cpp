@@ -19,7 +19,7 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
     srand(static_cast<unsigned>(time(nullptr)));
 
     // Adicionando pessoas saudáveis
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 97; ++i) {
         float x = static_cast<float>(rand() % largura); // Posição x aleatória
         float y = static_cast<float>(rand() % altura); // Posição y aleatória
         EstadoSaude estado = EstadoSaude::Saudavel; // Estado inicial: Saudável
@@ -27,6 +27,27 @@ Simulacao::Simulacao(int largura, int altura, int duracao_infeccao)
         float v_y = static_cast<float>(rand() % 200 - 100);
         pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
     }
+
+    // adicionando uma pessoa infectada (para teste de infectar por aproximação)
+    for (int i = 0; i < 3; ++i) {
+        float x = static_cast<float>(rand() % largura); // Posição x aleatória
+        float y = static_cast<float>(rand() % altura); // Posição y aleatória
+        EstadoSaude estado = EstadoSaude::Infectado; // Estado inicial: Saudável
+        float v_x = static_cast<float>(rand() % 200 - 100); // Velocidade inicial aleatória em x (-100 a 100 pixels/segundo)
+        float v_y = static_cast<float>(rand() % 200 - 100);
+        pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
+    }
+
+/*    
+    for (int i = 0; i < 20; ++i) {
+        float x = static_cast<float>(i * 20); // Posição x aleatória
+        float y = 100; // Posição y aleatória
+        EstadoSaude estado = EstadoSaude::Saudavel; // Estado inicial: Saudável
+        float v_x = 0; // Velocidade inicial aleatória em x (-100 a 100 pixels/segundo)
+        float v_y = 1;
+        pessoas.push_back(Pessoa(x, y, v_x, v_y, estado)); // Adiciona pessoa no vetor
+    }
+*/
 
     if (!textManager.loadFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf")) {
         cout << "Erro ao carregar a fonte!" << endl;
@@ -70,13 +91,12 @@ void Simulacao::update(float dt) {
             return;
         }
 
-        float TAXA_INFECCAO = 0.05f;
-        float TEMPO_RECUP = 4.0f;
+        //float TAXA_INFECCAO = 0.05f; // 5%
+        float TEMPO_RECUP = 4.0f; // em dias
 
-        epidemia.infectar(pessoas, TAXA_INFECCAO); 
+        epidemia.infectar(pessoas); 
         epidemia.recuperar(pessoas, TEMPO_RECUP);   
     
-
         total_infectados = epidemia.getNumInfectados();
         total_recuperados = epidemia.getNumRecuperados();
 

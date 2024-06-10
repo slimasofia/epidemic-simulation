@@ -1,4 +1,5 @@
 #include "Pessoa.h"
+#include <cmath>
 
 Pessoa::Pessoa(float x, float y, float v_x, float v_y, EstadoSaude estado) : x(x), y(y), v_x(v_x), v_y(v_y), estado(estado) {}
 
@@ -55,9 +56,22 @@ void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
     }
 }
 
-
 EstadoSaude Pessoa::getEstado() const {
     return estado;
+}
+
+float Pessoa::getX() const {
+    return x;
+}
+
+float Pessoa::getY() const {
+    return y;
+}
+
+float Pessoa::distancia(const Pessoa& outra) const {
+    float dx = x - outra.getX();
+    float dy = y - outra.getY();
+    return std::sqrt(dx * dx + dy * dy);
 }
 
 void Pessoa::setEstado(EstadoSaude novoEstado) {
