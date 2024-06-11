@@ -1,9 +1,9 @@
-#include "Pessoa.h"
+#include "Person.h"
 #include <cmath>
 
-Pessoa::Pessoa(float x, float y, float v_x, float v_y, EstadoSaude estado) : x(x), y(y), v_x(v_x), v_y(v_y), estado(estado) {}
+Person::Person(float x, float y, float v_x, float v_y, HealthCondition condition) : x(x), y(y), v_x(v_x), v_y(v_y), condition(condition) {}
 
-void Pessoa::atualizar(float dt, float w_width, float w_height) {
+void Person::update(float dt, float w_width, float w_height) {
     // Atualizar posição da pessoa com base em sua velocidade e no intervalo de tempo (delta_t)
     x += v_x * dt;
     y += v_y * dt;
@@ -25,29 +25,29 @@ void Pessoa::atualizar(float dt, float w_width, float w_height) {
         v_y = -v_y; // Inverte a direção da velocidade em y
     }
 
-    if (estado == EstadoSaude::Infectado) {
-        tempoInfectado += dt/3.0f;
+    if (condition == HealthCondition::Infected) {
+        infectedTime += dt/3.0f;
     }
 }
 
 //float w_width, float w_height
 
 // EVITAR QUE AS BOLINHAS SEJAM DESENHADAS FORA DO ESPAÇO DA TELA
-void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
+void Person::draw(RenderWindow& window, float w_width, float w_height) {
     
     if (x >= 0 && x < w_width && y >= 0 && y < w_height) {
        CircleShape circle(5); // cria bolinha com raio 5 pixels
        circle.setPosition(x, y); // Define a posição da bolinha com base na posição da pessoa
 
     // Define a cor da bolinha com base no estado de saúde da pessoa
-    switch (estado) {
-        case EstadoSaude::Saudavel:
+    switch (condition) {
+        case HealthCondition::Susceptible:
             circle.setFillColor(Color::Green); // saudável
             break;
-        case EstadoSaude::Infectado:
+        case HealthCondition::Infected:
             circle.setFillColor(Color::Red); // infectada
             break;
-        case EstadoSaude::Recuperado:
+        case HealthCondition::Recovered:
             circle.setFillColor(Color::Blue); // recuperada --> não tem a possobilidade de ficar doente novamente
             break;
     }
@@ -56,37 +56,37 @@ void Pessoa::desenhar(RenderWindow& window, float w_width, float w_height) {
     }
 }
 
-EstadoSaude Pessoa::getEstado() const {
-    return estado;
+HealthCondition Person::getCondition() const {
+    return condition;
 }
 
-float Pessoa::getX() const {
+float Person::getX() const {
     return x;
 }
 
-float Pessoa::getY() const {
+float Person::getY() const {
     return y;
 }
 
-float Pessoa::distancia(const Pessoa& outra) const {
+float Person::distance(const Person& outra) const {
     float dx = x - outra.getX();
     float dy = y - outra.getY();
     return std::sqrt(dx * dx + dy * dy);
 }
 
-void Pessoa::setEstado(EstadoSaude novoEstado) {
-    estado = novoEstado;
-    if (estado == EstadoSaude::Infectado) {
-        tempoInfectado = 0;
+void Person::setCondition(HealthCondition novoEstado) {
+    condition = novoEstado;
+    if (condition == HealthCondition::Infected) {
+        infectedTime = 0;
     }
 }
 
-void Pessoa::incrementarTempoInfectado(float dias) {
-    if (estado == EstadoSaude::Infectado) {
-        tempoInfectado += dias;
+void Person::increaseInfectedTime(float dias) {
+    if (condition == HealthCondition::Infected) {
+        infectedTime += dias;
     }
 }
 
-float Pessoa::getTempoInfectado() const {
-    return tempoInfectado;
+float Person::getInfectedTime() const {
+    return infectedTime;
 }
