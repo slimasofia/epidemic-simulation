@@ -1,5 +1,5 @@
 CXX = g++
-CXXFLAGS = -std=c++14 -Wall -Wextra
+CXXFLAGS = -std=c++17 -Wall -Wextra -Iinclude
 LDFLAGS = -lsfml-graphics -lsfml-window -lsfml-system
 
 TARGET = epidemic-simulation
