@@ -9,7 +9,7 @@
 
 class Simulation {
 public:
-    Simulation(int largura, int altura, int duracao_infeccao);
+    Simulation(int width, int height, int population, int recoveryTime);
     void run();
     void handleEvents();
     void update(float dt);
@@ -22,11 +22,14 @@ private:
     int windowHeight;
     int infectedCount;
     int recoveredCount;
-    int currentDay; // Current day of the simulation
-    int infectionDuration; // Duration of the infection in days
-    float elapsedTime; // Elapsed time since the last day
+    int currentDay;
+    //int infectionDuration; 
+    int population;
+    int recoveryTime;
+    float elapsedTime; // tempo decorrido desde o último dia
     std::vector<Person> people;
     Epidemic epidemic;
+    sf::Font font;
     TextManager textManager;
 };
 

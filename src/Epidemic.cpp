@@ -11,7 +11,8 @@ Epidemic::Epidemic() : infectedCount(0), recoveredCount(0) {
 void Epidemic::infect(vector<Person>& people) {
     const float INFEC_DISTANCE = 60.0f; // Distância mínima para infecção
 
-    // FUNÇÃO INFECTAR - POR APROXIMAÇÃO
+    
+//    ===============//FUNÇÃO INFECTAR - POR APROXIMAÇÃO//==================
 
     // para cada pessoa do vetor
     for (size_t i = 0; i < people.size(); ++i) {
@@ -36,7 +37,10 @@ void Epidemic::infect(vector<Person>& people) {
     }
 }
 
-/* FUNÇÃO INFECTAR - POR TAXA DE INFECÇÃO
+/* 
+
+    ==========//FUNÇÃO INFECTAR - POR TAXA DE INFECÇÃO//=========
+    
     percorrendo cada pessoa do vetor
     for (size_t i = 0; i < people.size(); ++i) {
         se encontrar uma pessoa saudável, criar uma chance de infecção para ela
@@ -63,7 +67,7 @@ void Epidemic::recover(vector<Person>& people, float recoveryTime) {
 }
 
 int Epidemic::getNumInfected() const {
-    return infectedCount;
+    return infectedCount + 1;
 }
 
 int Epidemic::getNumRecovered() const {

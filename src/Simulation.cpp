@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Simulation::Simulation(int windowWidth, int windowHeight, int infectionDuration) 
+Simulation::Simulation(int windowWidth, int windowHeight, int population, int recoveryTime) 
     : window(sf::VideoMode(windowWidth, windowHeight), "Epidemic Simulation"), 
       clock(),
       windowWidth(windowWidth), 
@@ -12,13 +12,15 @@ Simulation::Simulation(int windowWidth, int windowHeight, int infectionDuration)
       infectedCount(0), 
       recoveredCount(0),
       currentDay(0), 
-      infectionDuration(infectionDuration), 
+      //infectionDuration(infectionDuration), 
+      population(population),
+      recoveryTime(recoveryTime),
       elapsedTime(0), 
       epidemic() {
 
     srand(static_cast<unsigned>(time(nullptr)));
 
-    for (int i = 0; i < 100; ++i) {
+    for (int i = 0; i < population; ++i) {
         float x = static_cast<float>(rand() % windowWidth);
         float y = static_cast<float>(rand() % windowHeight); 
         HealthCondition condition = HealthCondition::Susceptible; 
@@ -28,16 +30,17 @@ Simulation::Simulation(int windowWidth, int windowHeight, int infectionDuration)
     }
 
     people[0].setCondition(HealthCondition::Infected);
-    infectedCount++;
 
-
-    if (!textManager.loadFont("/usr/share/fonts/truetype/ubuntu/Ubuntu-L.ttf")) {
-        cout << "Error loading font!" << endl;
+      if (!textManager.loadFont("res/OpenSans-Regular.ttf")) {
+        std::cout << "Error loading font!" << endl;
+        exit(EXIT_FAILURE);
     }
 
     textManager.addText("day", "Day: 0", 20, sf::Color::White, 10, 10);
-    textManager.addText("infected", "Total Infected: 0", 20, sf::Color::Red, 10, 40);
+    textManager.addText("infected", "Total Infected: 1", 20, sf::Color::Red, 10, 40);
     textManager.addText("recovered", "Total Recovered: 0", 20, sf::Color::Blue, 10, 70);
+    textManager.addText("end", "", 20, sf::Color::White, 170, 250);
+    textManager.addText("d", "", 20, sf::Color::White, 100, 250);
 }
 
 void Simulation::run() {
@@ -59,34 +62,41 @@ void Simulation::handleEvents() {
 }
 
 void Simulation::update(float dt) {
+
     // atualizando o tempo decorrido
     elapsedTime += dt;
 
-    // Se 1 dia passou (usando 3 segundos reais como 1 dia de simulação)
-    if (elapsedTime >= 3.0f) {
+    // Se 1 dia passou (usando 2 segundos reais como 1 dia de simulação)
+    if (elapsedTime >= 2.0f) {
         elapsedTime = 0.0f;
         currentDay++;
 
-        if (currentDay > infectionDuration) {
-            window.close();
-            return;
-        }
-
-        float RECOVERY_TIME = 4.0f; 
+        // if (currentDay > infectionDuration) {
+        //     window.close();
+        //     return;
+        // }
 
         epidemic.infect(people); 
-        epidemic.recover(people, RECOVERY_TIME);   
-    
-        infectedCount = std::max(epidemic.getNumInfected(), 0);
-        recoveredCount = std::max(epidemic.getNumRecovered(), 0);
+        epidemic.recover(people, recoveryTime);   
+        
+        infectedCount = max(epidemic.getNumInfected(), 0);
+        recoveredCount = max(epidemic.getNumRecovered(), 0);
 
         textManager.setText("day", "Day: " + to_string(currentDay));
         textManager.setText("infected", "Total Infected: " + to_string(infectedCount));
         textManager.setText("recovered", "Total Recovered: " + to_string(recoveredCount));
 
-        cout << "End of day " << currentDay << endl;
-        cout << "Total Infected: " << infectedCount << endl;
-        cout << "Total Recovered: " << recoveredCount << endl;
+
+        if (infectedCount == 0) {
+            //std::cout << "Day X: All the peoples recovered. The simulation is over." << endl;
+            //textManager.setText("d","Day: " + to_string(currentDay)); 
+            textManager.setText("end", "All the peoples recovered. The simulation is over.");
+            //window.close();
+        }
+
+        std::cout << "End of day " << currentDay << endl;
+        std::cout << "Total Infected: " << infectedCount << endl;
+        std::cout << "Total Recovered: " << recoveredCount << endl;
     }
 
     for (auto& person : people) {

@@ -1,11 +1,19 @@
 #include "Simulation.h"
+#include <iostream>
+using namespace std;
+
+#define WIDTH 800
+#define HEIGHT 600
+//#define INFEC_DURATION 15 //em dias
+#define RECOVERY_TIME 7
+
 
 int main() {
-    int largura = 800;
-    int altura = 600;
-    int duracao_infeccao = 15; //em dias
+    int population;
+    cout << "population: " << endl;
+    cin >> population;
+    Simulation simulation(WIDTH, HEIGHT, population, RECOVERY_TIME);
 
-    Simulation simulation(largura, altura, duracao_infeccao);
     simulation.run();
 
     return 0;
