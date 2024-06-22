@@ -4,7 +4,7 @@
 #include <iostream>
 using namespace std;
 
-Simulation::Simulation(int windowWidth, int windowHeight, int population, int recoveryTime) 
+Simulation::Simulation(int windowWidth, int windowHeight, int population) 
     : window(sf::VideoMode(windowWidth, windowHeight), "Epidemic Simulation"), 
       clock(),
       windowWidth(windowWidth), 
@@ -13,7 +13,7 @@ Simulation::Simulation(int windowWidth, int windowHeight, int population, int re
       recoveredCount(0),
       currentDay(0), 
       population(population),
-      recoveryTime(recoveryTime),
+      //recoveryTime(recoveryTime),
       elapsedTime(0), 
       epidemic(),
       simulationEnded(false) { 
@@ -73,7 +73,7 @@ void Simulation::update(float dt) {
         currentDay++;
 
         epidemic.infect(people); 
-        epidemic.recover(people, recoveryTime);   
+        epidemic.recover(people, 7.0f);   
         
         infectedCount = max(epidemic.getNumInfected(), 0);
         recoveredCount = max(epidemic.getNumRecovered(), 0);

@@ -1,0 +1,16 @@
+# arquivos binários compilados
+*.o
+*.a
+*.out
+
+# diretórios de build
+/build/
+bin/
+obj/
+
+# arquivos de log
+*.log
+
+# configurações do editor
+.vscode/
+*.code-workspace

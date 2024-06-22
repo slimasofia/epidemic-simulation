@@ -12,7 +12,7 @@ int main() {
     int population;
     cout << "\nPopulation: ";
     cin >> population;
-    Simulation simulation(WIDTH, HEIGHT, population, RECOVERY_TIME);
+    Simulation simulation(WIDTH, HEIGHT, population);
 
     simulation.run();
 

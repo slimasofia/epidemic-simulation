@@ -9,8 +9,8 @@ Epidemic::Epidemic() : infectedCount(0), recoveredCount(0) {
 }
 
 void Epidemic::infect(vector<Person>& people) {
-    const float INFEC_DISTANCE = 60.0f; // Distância mínima para infecção
 
+    const float INFEC_DISTANCE = 60.0f; // Distância mínima para infecção
     
 //    ===============//FUNÇÃO INFECTAR - POR APROXIMAÇÃO//==================
 
@@ -44,7 +44,7 @@ void Epidemic::infect(vector<Person>& people) {
     percorrendo cada pessoa do vetor
     for (size_t i = 0; i < people.size(); ++i) {
         se encontrar uma pessoa saudável, criar uma chance de infecção para ela
-        if (people[i].getCondition() == HealthCondition::Healthy) {
+        if (people[i].getCondition() == HealthCondition::Susceptible) {
             float chance_infeccao = static_cast<float>(rand()) / static_cast<float>(RAND_MAX);
             se a chance de infecção for menor que a taxa de infecção: infectar
             if (chance_infeccao < taxa_infeccao) {

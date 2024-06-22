@@ -26,13 +26,10 @@ void Person::update(float dt, float w_width, float w_height) {
     }
 
     if (condition == HealthCondition::Infected) {
-        infectedTime += dt/3.0f;
+        infectedTime += dt/3; 
     }
 }
 
-//float w_width, float w_height
-
-// EVITAR QUE AS BOLINHAS SEJAM DESENHADAS FORA DO ESPAÇO DA TELA
 void Person::draw(RenderWindow& window, float w_width, float w_height) {
     
     if (x >= 0 && x < w_width && y >= 0 && y < w_height) {
@@ -42,7 +39,7 @@ void Person::draw(RenderWindow& window, float w_width, float w_height) {
     // Define a cor da bolinha com base no estado de saúde da pessoa
     switch (condition) {
         case HealthCondition::Susceptible:
-            circle.setFillColor(Color::Green); // saudável
+            circle.setFillColor(Color::Green); // suscetível --> pode se infectar a qualquer momento
             break;
         case HealthCondition::Infected:
             circle.setFillColor(Color::Red); // infectada
@@ -68,22 +65,22 @@ float Person::getY() const {
     return y;
 }
 
-float Person::distance(const Person& outra) const {
-    float dx = x - outra.getX();
-    float dy = y - outra.getY();
+float Person::distance(const Person& other) const {
+    float dx = x - other.getX();
+    float dy = y - other.getY();
     return std::sqrt(dx * dx + dy * dy);
 }
 
-void Person::setCondition(HealthCondition novoEstado) {
-    condition = novoEstado;
+void Person::setCondition(HealthCondition newCondition) {
+    condition = newCondition;
     if (condition == HealthCondition::Infected) {
         infectedTime = 0;
     }
 }
 
-void Person::increaseInfectedTime(float dias) {
+void Person::increaseInfectedTime(float days) {
     if (condition == HealthCondition::Infected) {
-        infectedTime += dias;
+        infectedTime += days;
     }
 }
 

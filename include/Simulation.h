@@ -9,7 +9,7 @@
 
 class Simulation {
 public:
-    Simulation(int width, int height, int population, int recoveryTime);
+    Simulation(int width, int height, int population);
     void run();
     void handleEvents();
     void update(float dt);
@@ -25,11 +25,10 @@ private:
     int currentDay;
     //int infectionDuration; 
     int population;
-    int recoveryTime;
+    //int recoveryTime;
     float elapsedTime; // tempo decorrido desde o último dia
     std::vector<Person> people;
     Epidemic epidemic;
-    sf::Font font;
     TextManager textManager;
     bool simulationEnded;
 

@@ -15,26 +15,24 @@ A simulação inicia-se com pelo menos 1 pessoa infectada, de uma população qu
 - Probabilidade de Contato: Em uma população maior, a probabilidade de uma pessoa saudável encontrar uma pessoa infectada é maior, devido ao maior número de encontros possíveis. Em uma população menor, essa probabilidade diminui, potencialmente desacelerando a taxa de infecção.
 
 
-Ao ser infectada, uma contagem é iniciada para a pessoa, e ela irá se recuperar no momento em que o seu tempo de infecção for maior ou igual ao tempo de recuperação. Nessa simulação o tempo de recuperação é de 7 dias.
+Ao ser infectada, uma contagem é iniciada para a pessoa, e ela irá se recuperar no momento em que o seu tempo de infecção for maior ou igual ao tempo de recuperação. Nessa simulação o tempo **mínimo** de recuperação é de 7 dias.
 
-
-
-*Essa simulação considera que pessoas recuperadas não se infectam novamente. 
+**Essa simulação considera que pessoas recuperadas não se infectam novamente.**
 
 
 ## Para rodar
 
-### Requisitos
+### _Requisitos_
 - c++17
 - biblioteca [SFML](https://www.sfml-dev.org/)
 - make
 
-    *Para sistemas baseados em Debian, por exemplo, você pode instalar os requisitos com:
+**Para sistemas baseados em Debian, por exemplo, você pode instalar os requisitos com:**
 
-        sudo apt install build-essential 
-        sudo apt-get install libsfml-dev #biblioteca sfml
+    sudo apt install build-essential 
+    sudo apt-get install libsfml-dev
 
-### Instruções
+### _Instruções_
 
 #### Clone este repositório:
     git clone https://github.com/slimasofia/epidemic-simulation.git
@@ -45,5 +43,10 @@ Ao ser infectada, uma contagem é iniciada para a pessoa, e ela irá se recupera
 #### Compile o projeto:
     make
 
-#### Execute o projeto:
+#### Execute:
     ./epidemic-simulation
+
+
+
+
+---
