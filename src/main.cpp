@@ -4,13 +4,13 @@ using namespace std;
 
 #define WIDTH 800
 #define HEIGHT 600
-//#define INFEC_DURATION 15 //em dias
+//#define INFEC_DURATION 15
 #define RECOVERY_TIME 7
 
 
 int main() {
     int population;
-    cout << "population: " << endl;
+    cout << "\nPopulation: ";
     cin >> population;
     Simulation simulation(WIDTH, HEIGHT, population, RECOVERY_TIME);
 

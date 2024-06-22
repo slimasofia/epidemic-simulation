@@ -31,6 +31,8 @@ private:
     Epidemic epidemic;
     sf::Font font;
     TextManager textManager;
+    bool simulationEnded;
+
 };
 
 #endif

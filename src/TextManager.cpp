@@ -27,3 +27,12 @@ void TextManager::draw(sf::RenderWindow& window) {
         window.draw(pair.second);
     }
 }
+
+void TextManager::centerText(const std::string& key, const sf::RenderWindow& window) {
+    if (texts.find(key) != texts.end()) {
+        sf::Text& text = texts[key];
+        sf::FloatRect textRect = text.getLocalBounds();
+        text.setOrigin(textRect.left + textRect.width / 2.0f, textRect.top + textRect.height / 2.0f);
+        text.setPosition(window.getSize().x / 2.0f, window.getSize().y / 2.0f);
+    }
+}

@@ -12,6 +12,7 @@ public:
     void addText(const std::string& key, const std::string& text, int size, const sf::Color& color, float x, float y);
     void setText(const std::string& key, const std::string& text);
     void draw(sf::RenderWindow& window);
+    void centerText(const std::string& key, const sf::RenderWindow& window);
 
 private:
     sf::Font font;
