@@ -1,6 +1,7 @@
 # epidemic-simulation
 Simulação de uma epidemia utilizando a biblioteca SFML - Projeto para a disciplina de Programação Orientada a Objetos II.
 
+![Diagrama de classes](res/epidemic-simulation.png)
 
 ## Descrição
 A simulação inicia-se com pelo menos 1 pessoa infectada, de uma população que pode ser escolhida na hora da execução. Uma distância mínima para infecção é definida, e a contaminação se da a partir da aproximação de pessoas suscetíveis com pessoas infectadas. Os novos infectados são atualizados ao fim de cada dia.
@@ -47,6 +48,7 @@ Ao ser infectada, uma contagem é iniciada para a pessoa, e ela irá se recupera
     ./epidemic-simulation
 
 
-
-
+Diagrama de Classes
 ---
+
+![Diagrama de classes](res/class_diagram.png)
